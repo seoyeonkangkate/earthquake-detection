@@ -1,0 +1,89 @@
+---
+title: "final"
+author: "Kate Kang"
+date: '2021 11 10 '
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(lubridate)
+```
+
+```{r}
+disasters <- read.csv("1900_2021_DISASTERS.csv")
+```
+
+```{r}
+ggplot(disasters) +
+  geom_histogram(aes(x=Year), binwidth=1) +
+  ylab("Number of Disasters") +
+  xlab("Year") +
+  ggtitle("Disasters vs Year")
+```
+
+```{r}
+recent <- disasters %>%
+  filter(Year >= 1970)
+```
+
+```{r}
+ggplot(recent) +
+  geom_histogram(aes(x=Year), binwidth=1) +
+  ylab("Number of Disasters") +
+  xlab("Year") +
+  ggtitle("Disasters vs Year")
+```
+
+```{r}
+flood <- recent %>%
+  filter(Disaster.Type == 'Flood')
+```
+
+
+```{r}
+ggplot(flood) +
+  geom_histogram(aes(x=Year), binwidth=1)
+```
+
+```{r}
+ggplot(flood) +
+  geom_bar(aes(Continent))
+```
+
+```{r}
+ggplot(flood) +
+  geom_bar(aes(Region)) +
+  theme(axis.text.x = element_text(angle = 60, hjust=1)) +
+  ylab("Frequency")+
+  ggtitle("Flood by Region 1970-2021")
+```
+
+```{r}
+earthquake <- disasters %>%
+  filter(Disaster.Type == 'Earthquake')
+```
+
+```{r}
+ggplot(earthquake) +
+  geom_histogram(aes(x=Year), binwidth=1) +
+  ylab("Earthquake Detection") +
+  xlab("Year") +
+  ggtitle("Earthquake vs Year")
+```
+
+```{r}
+ggplot(earthquake) +
+  geom_bar(aes(Continent))
+```
+
+```{r}
+ggplot(earthquake) +
+  geom_bar(aes(Region)) +
+  theme(axis.text.x = element_text(angle = 60, hjust=1)) +
+  ylab("Detection")+
+  ggtitle("Earthquake by Region")
+```
+
+
